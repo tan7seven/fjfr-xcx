@@ -1,0 +1,59 @@
+{
+  "pages": [
+    
+    "pages/sendUp/sendUp",
+    "pages/declare/declare",
+    "pages/ordersList/ordersList",
+    "pages/userMsg/userMsg",
+    "pages/userMsg/userOrders/userOrders",
+    "pages/userMsg/userMsg/modifyPhone"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "福建拼车",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "selectedColor": "#1296db",
+    "backgroundColor": "#ffffff",
+    "borderStyle":"white",
+    "list": [
+      {
+        "pagePath": "pages/sendUp/sendUp",
+        "iconPath": "index/image/send-icon.png",
+        "selectedIconPath": "index/image/send-icon-selected.png",
+        "text": "行程发布"
+      },
+      {
+        "pagePath": "pages/ordersList/ordersList",
+        "iconPath": "index/image/ordersList-icon.png",
+        "selectedIconPath": "index/image/ordersList-icon-selected.png",
+        "text": "行程列表"
+      },
+      {
+        "pagePath": "pages/userMsg/userMsg",
+        "iconPath": "index/image/userMsg-icon.png",
+        "selectedIconPath": "index/image/userMsg-icon-selceted.png",
+        "text": "个人信息"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  },
+  "debug": true,
+  "navigateToMiniProgramAppIdList": [
+    "wxe5f52902cf4de896"
+  ],
+  "usingComponents": {
+    "van-tabbar": "./miniprogram_npm/vant-weapp/tabbar/index",
+    "van-tabbar-item": "./miniprogram_npm/vant-weapp/tabbar-item/index"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  }
+}

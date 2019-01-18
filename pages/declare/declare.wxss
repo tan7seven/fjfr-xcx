@@ -1,0 +1,8 @@
+.text-font{
+  font-size: 25rpx;
+  line-height: 30rpx;
+}
+.slogan{
+  padding-left: 50rpx;
+  padding-right: 50rpx;
+}

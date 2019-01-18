@@ -1,0 +1,14 @@
+.choose-address{
+  border: 1px solid #000;
+}
+.lable-mzsm{
+  font-size: 18px;
+  margin-top: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(4, 166, 241, 0.904);
+}
+.vanButton{
+  margin-top: 50rpx
+}
