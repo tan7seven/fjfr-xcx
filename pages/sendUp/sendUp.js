@@ -173,7 +173,16 @@ Page({
     console.log(_page.data.startTime);
     console.log(_page.data.endTime);
     console.log(_page.data.peopleNumber);
-    console.log(_page.data.remark);
+    console.log(_page.data.endAddress);
+    console.log(_page.data.endName);
+    console.log(_page.data.endLatitude);
+    console.log(_page.data.endLongitude);
+    console.log(_page.data.startAddress);
+    console.log(_page.data.startName);
+    console.log(_page.data.startLatitude);
+    console.log(_page.data.startLongitude);
+    console.log(_page.data.startTimeLong);
+    console.log(_page.data.endTimeLong);
     wx.request({
       url: 'test.php', // 仅为示例，并非真实的接口地址
       data: {

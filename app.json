@@ -4,6 +4,7 @@
     "pages/sendUp/sendUp",
     "pages/declare/declare",
     "pages/ordersList/ordersList",
+    "pages/ordersMap/ordersMap",
     "pages/userMsg/userMsg",
     "pages/userMsg/userOrders/userOrders",
     "pages/userMsg/userMsg/modifyPhone"

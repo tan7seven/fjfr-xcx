@@ -1,1 +1,17 @@
-/* pages/ordersList/ordersList.wxss */
+.card-view{
+  
+  height: 100%;
+}
+.card-font-right{
+  float:right;
+  color: #FF0000;
+  font-size: 30rpx;
+  margin-left: 8rpx;
+}
+.card-font{
+  background-color: #F8F8F8;
+  padding: 10rpx 30rpx 10rpx 30rpx;
+  margin-top: 30rpx;
+  line-height: 45rpx;
+  font-size: 25rpx;
+}

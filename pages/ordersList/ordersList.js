@@ -1,12 +1,83 @@
-// pages/ordersList/ordersList.js
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
-
+    redRec:"../../index/image/red.png",
+    greenUrl:"../../index/image/green.png",
+    timeUrl: "../../index/image/time.png",
+    rightUrl: "../../index/image/right.png",
+    ordersList:[{
+      ordersState:"等待中",
+      userName: "魏佳郑",
+      userPhone: "18094010674",
+      startAddress: "福建省福州市福清市一拂街7号",
+      startName: "福清环球商业中心",
+      startLatitude: 25.71964,
+      startLongitude: 119.38349,
+      endAddress: "福建省福州市福清市锦云街附近",
+      endName: "成龙步行街",
+      endLatitude: 25.719881,
+      endLongitude: 119.3798,
+      startTime: "2019-1-18 22:15",
+      endTime: "2019-1-18 22:15",
+      peopleNumber: 4,
+      remark: "备注信息"
+    },{
+        ordersState: "已完成",
+        userName: "魏佳郑",
+        userPhone: "18094010674",
+        startAddress: "福建省福州市福清市一拂街7号",
+        startName: "福清环球商业中心",
+        startLatitude: 25.71964,
+        startLongitude: 119.38349,
+        endAddress: "福建省福州市福清市锦云街附近",
+        endName: "成龙步行街",
+        endLatitude: 25.719881,
+        endLongitude: 119.3798,
+        startTime: "2019-1-18 22:15",
+        endTime: "2019-1-18 22:15",
+        peopleNumber: 4,
+        remark: "备注信息"
+      }]
   },
+
+  toOrdersMap: function (e){
+    let id = e.currentTarget.dataset.id;
+    let item = e.currentTarget.dataset.item;
+    let _item = JSON.stringify(item)
+    debugger
+    wx.navigateTo({
+      url: '../ordersMap/ordersMap?item=' + _item
+    })
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   /**
    * 生命周期函数--监听页面加载

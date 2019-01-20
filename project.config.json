@@ -37,7 +37,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 2,
 			"list": [
 				{
 					"id": -1,
@@ -48,7 +48,14 @@
 				{
 					"id": -1,
 					"name": "信息发布",
-					"pathName": "pages/sendUp/sendUp"
+					"pathName": "pages/sendUp/sendUp",
+					"query": ""
+				},
+				{
+					"id": 2,
+					"name": "订单列表",
+					"pathName": "pages/ordersList/ordersList",
+					"query": ""
 				}
 			]
 		}
