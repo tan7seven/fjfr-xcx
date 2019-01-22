@@ -1,6 +1,40 @@
 <map id="myMap" style="width: 100%; height: 300px;" longitude="{{longitude}}" latitude="{{latitude}}" scale='{{scale}}' polyline="{{polyline}}" markers="{{markers}}" covers="{{covers}}" show-location></map>
 
-两点之间的距离：{{resultDistance}}
-
-<!--绑定点击事件-->
-<button bindtap="driving" disabled='{{openNav}}'>开始导航</button>
+<van-cell
+    title="订单信息"
+    icon="star-o"
+    value="{{orders.ordersType}}-{{orders.ordersState}}"
+  />
+<van-cell
+    title="乘客姓名"
+    icon="contact"
+    value="{{orders.userName}}"
+  />
+<van-cell
+    title="联系电话"
+    icon="phone-o"
+    value="{{orders.userPhone}}"
+    clickable=true
+    is-link
+    bind:click="makePhoneCall"
+  />
+<van-cell
+    title="开始时间"
+    icon="clock-o"
+    value="{{orders.startTime}}"
+  />
+  <van-cell
+    title="结束时间"
+    icon="clock-o"
+    value="{{orders.endTime}}"
+  />
+  <van-cell
+    title="乘车人数"
+    icon="friends-o"
+    value="{{orders.peopleNumber}}"
+  />
+  <van-cell
+    title="备注信息"
+    icon="other-pay"
+    label="{{orders.remark}}"
+  />

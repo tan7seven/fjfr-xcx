@@ -17,8 +17,8 @@
   },
   "tabBar": {
     "selectedColor": "#1296db",
-    "backgroundColor": "#ffffff",
-    "borderStyle":"white",
+    "backgroundColor": "#F8F8F8",
+    "borderStyle":"#C0C0C0",
     "list": [
       {
         "pagePath": "pages/sendUp/sendUp",

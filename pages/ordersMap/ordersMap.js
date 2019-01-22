@@ -1,4 +1,11 @@
 // pages/ordersMap/ordersMap.js
+// // 引入SDK核心类
+let QQMapWX = require('../../miniprogram_npm/qqmap-wx-jssdk.min.js');
+
+// 实例化API核心类
+let qqmapsdk = new QQMapWX({
+  key: 'T7IBZ-OAKKG-UO3QC-IRQEQ-IHYSF-NMF6J'
+});
 Page({
 
   /**
@@ -7,19 +14,37 @@ Page({
   data: {
 
   },
-  //事件回调函数
-  driving: function () {
-
+  //拨打电话
+  makePhoneCall: function () {
     let _page = this;
+    wx.makePhoneCall({
+      phoneNumber: _page.data.orders.userPhone
+    })
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    let that = this
+    let item = JSON.parse(options.item)
+    that.setData({
+      orders: item
+    })
+    
+  },
 
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+    let _page = this;
     // 起点经纬度
-    let latStart = wx.getStorageSync('latlngstart').lat;
-    let lngStart = wx.getStorageSync('latlngstart').lng;
+    let latStart = _page.data.orders.startLatitude;
+    let lngStart = _page.data.orders.startLongitude;
 
     // 终点经纬度
-    let latEnd = wx.getStorageSync('latlngend').lat;
-    let lngEnd = wx.getStorageSync('latlngend').lng;
-
+    let latEnd = _page.data.orders.endLatitude;
+    let lngEnd = _page.data.orders.endLongitude;
 
     _page.setData({
       latitude: latStart,
@@ -30,44 +55,40 @@ Page({
         latitude: latStart,
         longitude: lngStart,
         // 起点图标
-        iconPath: '../image/location.png'
       },
       {
         id: 1,
         latitude: latEnd,
         longitude: lngEnd,
         // 终点图标
-        iconPath: '../image/location.png'
       },
       ]
     });
-    ``
-
     /**
      * 获取两点的距离
      */
-    qqmapsdk.calculateDistance({
-      to: [{
-        latitude: latStart,
-        longitude: lngStart
-      }, {
-        latitude: latEnd,
-        longitude: lngEnd
-      }],
-      success: function (res) {
-        console.log(res, '两点之间的距离：', res.result.elements[1].distance);
-        _page.setData({
-          resultDistance: res.result.elements[1].distance + '米'
-        });
-      },
-      fail: function (res) {
-        console.log(res);
-      },
-      complete: function (res) {
-        console.log(res);
-      }
-    });
-
+    // qqmapsdk.calculateDistance({
+    //   to: [{
+    //     latitude: latStart,
+    //     longitude: lngStart
+    //   }, {
+    //     latitude: latEnd,
+    //     longitude: lngEnd
+    //   }],
+    //   success: function (res) {
+    //     console.log(res, '两点之间的距离：', res.result.elements[1].distance);
+    //     _page.setData({
+    //       resultDistance: res.result.elements[1].distance + '米'
+    //     });
+    //   },
+    //   fail: function (res) {
+    //     console.log(res);
+    //   },
+    //   complete: function (res) {
+    //     console.log(res);
+    //   }
+    // });
+    // console.log(`${latStart}`);
     //网络请求设置
     let opt = {
       //WebService请求地址，from为起点坐标，to为终点坐标，开发key为必填
@@ -96,34 +117,13 @@ Page({
         _page.setData({
           polyline: [{
             points: pl,
-            color: '#FF0000DD',
-            width: 4
+            color: '#FF0000',
+            width: 3
           }]
         })
       }
     };
     wx.request(opt);
-  },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    let that = this
-    // console.log(options)
-    //  console.log(options.jsonStr)
-    //  console.log(options.strr)
-    let item = JSON.parse(options.item)
-    that.setData({
-      orders: item
-    })
-    debugger
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
   },
 
   /**

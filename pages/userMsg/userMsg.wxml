@@ -11,6 +11,7 @@
   <van-cell
     title="用户积分"
     value="{{userIntegral}}"
+    
     size=large
   />
   <van-cell
