@@ -1,124 +1,148 @@
-<van-tabs type="card" color="rgba(4, 166, 241, 0.904)">
-  <van-tab title="人找车" >
-    <view class="card-view">
-    <van-cell-group>
-        <van-field
-          value="{{ queryFareParam }}"
-          clearable
-          center
-          label="地址搜索"
-          placeholder="关键字搜索"
-          border="{{ true }}"
-          use-button-slot
-        >
-          <van-button slot="button" size="small" type="primary">搜索行程</van-button>
-        </van-field>
-      </van-cell-group>
-      <scroll-view>
-        <view wx:for="{{ordersFareList}}" wx:for-index="index" wx:for-item="itemName" >
-        <view class='card-font' bindtap="toOrdersMap" data-id="{{index}}" data-item="{{itemName}}" >
-          <view>
-          <image
-            style="width: 15rpx; height: 15rpx;"
-            mode="aspectFill"
-            src="{{timeUrl}}"
-          ></image>
-          <text decode="nbsp">&nbsp;&nbsp;{{itemName.startTime}}</text>
-          <image class='card-font-right'
-            style="width: 30rpx; height: 30rpx;"
-            mode="aspectFill"
-            src="{{rightUrl}}"
-          ></image>
-          <text class='card-font-right' style='margin-top: -8rpx;'>{{itemName.ordersState}}</text>
-          </view>
-          <view>
-          <image
-            style="width: 15rpx; height: 15rpx;"
-            mode="aspectFill"
-            src="{{timeUrl}}"
-          ></image>
-          <text decode="nbsp">&nbsp;&nbsp;{{itemName.endTime}}</text>
-          </view>
-          <view>
-          <image
-            style="width: 15rpx; height: 15rpx;"
-            mode="aspectFill"
-            src="{{greenUrl}}"
-          ></image>
-          <text decode="nbsp">&nbsp;&nbsp;{{itemName.startAddress}}&nbsp;-&nbsp;{{itemName.startName}}</text>
-          </view>
-          <view>
-          <image
-            style="width: 15rpx; height: 15rpx;"
-            mode="aspectFill"
-            src="{{redRec}}"
-          ></image>
-          <text decode="nbsp">&nbsp;&nbsp;{{itemName.endAddress}}&nbsp;-&nbsp;{{itemName.endName}}</text>
-          </view>
+<view wx:if="{{isHide}}">
+    <view wx:if="{{canIUse}}" >
+        <view class='header'>
+            <image src='../../index/image/wx_login.png'></image>
         </view>
+ 
+        <view class='content'>
+            <view>申请获取以下权限</view>
+            <text>获得你的公开信息(昵称，头像等)</text>
         </view>
-      </scroll-view> 
+ 
+        <button class='bottom' type='primary' open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="bindGetUserInfo">
+            授权登录
+        </button>
     </view>
-  </van-tab>
-  <van-tab title="车找人">
-    <view class="card-view">
+    <view wx:else>请升级微信版本</view>
+</view>
+ 
+<view wx:else>
+  <van-dialog id="van-dialog" />
+  <van-toast id="van-toast" />
+  <van-tabs type="card" color="rgba(4, 166, 241, 0.904)">
+    <van-tab title="人找车" >
+      <view class="card-view">
       <van-cell-group>
-        <van-field
-          value="{{ queryFareParam }}"
-          clearable
-          center
-          label="地址搜索"
-          placeholder="关键字搜索"
-          border="{{ true }}"
-          use-button-slot
-        >
-          <van-button slot="button" size="small" type="primary">搜索行程</van-button>
-        </van-field>
-      </van-cell-group>
-      <scroll-view>
-        <view wx:for="{{ordersFareList}}" wx:for-index="index" wx:for-item="itemName" >
-        <view class='card-font' bindtap="toOrdersMap" data-id="{{index}}" data-item="{{itemName}}" >
-          <view>
-          <image
-            style="width: 15rpx; height: 15rpx;"
-            mode="aspectFill"
-            src="{{timeUrl}}"
-          ></image>
-          <text decode="nbsp">&nbsp;&nbsp;{{itemName.startTime}}</text>
-          <image class='card-font-right'
-            style="width: 30rpx; height: 30rpx;"
-            mode="aspectFill"
-            src="{{rightUrl}}"
-          ></image>
-          <text class='card-font-right' style='margin-top: -8rpx;'>{{itemName.ordersState}}</text>
+          <van-field
+            value="{{ queryParam1 }}"
+            clearable
+            center
+            label="地址搜索"
+            placeholder="关键字搜索"
+            border="{{ true }}"
+            use-button-slot
+            bind:change="changeParam1"
+          >
+            <van-button slot="button" size="small" type="primary">搜索行程</van-button>
+          </van-field>
+        </van-cell-group>
+        <scroll-view>
+          <view wx:for="{{ordersList}}" wx:for-index="index" wx:for-item="itemName" >
+          <view class='card-font' bindtap="toOrdersMap" data-id="{{index}}" data-item="{{itemName}}" wx:if="{{itemName.ordersType==0}}" >
+            <view>
+            <image
+              style="width: 15rpx; height: 15rpx;"
+              mode="aspectFill"
+              src="{{timeUrl}}"
+            ></image>
+            <text decode="nbsp">&nbsp;&nbsp;{{itemName.startTime}}</text>
+            <image class='card-font-right'
+              style="width: 30rpx; height: 30rpx;"
+              mode="aspectFill"
+              src="{{rightUrl}}"
+            ></image>
+            <text class='card-font-right' style='margin-top: -8rpx;'>{{itemName.ordersState}}</text>
+            </view>
+            <view>
+            <image
+              style="width: 15rpx; height: 15rpx;"
+              mode="aspectFill"
+              src="{{timeUrl}}"
+            ></image>
+            <text decode="nbsp">&nbsp;&nbsp;{{itemName.endTime}}</text>
+            </view>
+            <view>
+            <image
+              style="width: 15rpx; height: 15rpx;"
+              mode="aspectFill"
+              src="{{greenUrl}}"
+            ></image>
+            <text decode="nbsp">&nbsp;&nbsp;{{itemName.startAddress}}&nbsp;-&nbsp;{{itemName.startName}}</text>
+            </view>
+            <view>
+            <image
+              style="width: 15rpx; height: 15rpx;"
+              mode="aspectFill"
+              src="{{redRec}}"
+            ></image>
+            <text decode="nbsp">&nbsp;&nbsp;{{itemName.endAddress}}&nbsp;-&nbsp;{{itemName.endName}}</text>
+            </view>
           </view>
-          <view>
-          <image
-            style="width: 15rpx; height: 15rpx;"
-            mode="aspectFill"
-            src="{{timeUrl}}"
-          ></image>
-          <text decode="nbsp">&nbsp;&nbsp;{{itemName.endTime}}</text>
           </view>
-          <view>
-          <image
-            style="width: 15rpx; height: 15rpx;"
-            mode="aspectFill"
-            src="{{greenUrl}}"
-          ></image>
-          <text decode="nbsp">&nbsp;&nbsp;{{itemName.startAddress}}&nbsp;-&nbsp;{{itemName.startName}}</text>
+        </scroll-view> 
+      </view>
+    </van-tab>
+    <van-tab title="车找人">
+      <view class="card-view">
+        <van-cell-group>
+          <van-field
+            value="{{ queryParam2 }}"
+            clearable
+            center
+            label="地址搜索"
+            placeholder="关键字搜索"
+            border="{{ true }}"
+            use-button-slot
+            bind:change="changeParam2"
+          >
+            <van-button slot="button" size="small" type="primary">搜索行程</van-button>
+          </van-field>
+        </van-cell-group>
+        <scroll-view>
+          <view wx:for="{{ordersList}}" wx:for-index="index" wx:for-item="itemName" >
+          <view class='card-font' bindtap="toOrdersMap" data-id="{{index}}" data-item="{{itemName}}"  wx:if="{{itemName.ordersType==1}}" >
+            <view>
+            <image
+              style="width: 15rpx; height: 15rpx;"
+              mode="aspectFill"
+              src="{{timeUrl}}"
+            ></image>
+            <text decode="nbsp">&nbsp;&nbsp;{{itemName.startTime}}</text>
+            <image class='card-font-right'
+              style="width: 30rpx; height: 30rpx;"
+              mode="aspectFill"
+              src="{{rightUrl}}"
+            ></image>
+            <text class='card-font-right' style='margin-top: -8rpx;'>{{itemName.ordersState}}</text>
+            </view>
+            <view>
+            <image
+              style="width: 15rpx; height: 15rpx;"
+              mode="aspectFill"
+              src="{{timeUrl}}"
+            ></image>
+            <text decode="nbsp">&nbsp;&nbsp;{{itemName.endTime}}</text>
+            </view>
+            <view>
+            <image
+              style="width: 15rpx; height: 15rpx;"
+              mode="aspectFill"
+              src="{{greenUrl}}"
+            ></image>
+            <text decode="nbsp">&nbsp;&nbsp;{{itemName.startAddress}}&nbsp;-&nbsp;{{itemName.startName}}</text>
+            </view>
+            <view>
+            <image
+              style="width: 15rpx; height: 15rpx;"
+              mode="aspectFill"
+              src="{{redRec}}"
+            ></image>
+            <text decode="nbsp">&nbsp;&nbsp;{{itemName.endAddress}}&nbsp;-&nbsp;{{itemName.endName}}</text>
+            </view>
           </view>
-          <view>
-          <image
-            style="width: 15rpx; height: 15rpx;"
-            mode="aspectFill"
-            src="{{redRec}}"
-          ></image>
-          <text decode="nbsp">&nbsp;&nbsp;{{itemName.endAddress}}&nbsp;-&nbsp;{{itemName.endName}}</text>
           </view>
-        </view>
-        </view>
-      </scroll-view> 
-    </view>
-  </van-tab>
-</van-tabs>
+        </scroll-view> 
+      </view>
+    </van-tab>
+  </van-tabs>
+</view>

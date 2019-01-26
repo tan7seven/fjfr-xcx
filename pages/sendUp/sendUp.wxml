@@ -1,134 +1,180 @@
-<van-nav-bar
-  title="人找车"
-/>
-<van-dialog id="van-dialog" />
-<van-toast id="van-toast" />
-<view>
-  <van-cell-group>
-    <van-field
-      value="{{ userName }}"
-      label="联系人"
-      placeholder="请输入联系人"
-      left-icon="contact"
-      focus="{{userNameFocus}}"
-      border="{{ true }}"
-      required=true
-    />
-    <van-field
-      value="{{ userPhone }}"
-      label="手机号"
-      left-icon="phone-o"
-      placeholder="请输入手机号"
-      focus="{{userPhoneFocus}}"
-      border="{{ true }}"
-      required=true
-    />
-    <van-field
-      value="{{ startPlace }}"
-      label="出发地"
-      placeholder="请输入地址"
-      focus="{{startPlaceFocus}}"
-      left-icon="location-o"
-      readonly=true
-      type="textarea"
-      autosize
-      border="{{ true }}"
-      bindtap="onStartPlace"
-      required=true
-    />
-    <van-field
-      value="{{ endPlace }}"
-      label="目的地"
-      placeholder="请输入地址"
-      focus="{{endPlaceFocus}}"
-      left-icon="location-o"
-      readonly=true
-      type="textarea"
-      autosize
-      border="{{ true }}"
-      bindtap="onEndPlace"
-      required=true
-    />
-    <van-field
-      value="{{ startTime }}"
-      label="出发时间"
-      placeholder="请输入时间"
-      focus="{{startTimeFocus}}"
-      left-icon="clock-o"
-      readonly=true
-      border="{{ true }}"
-      bindtap="onStartTime"
-      required=true
-    />
-    <van-field
-      value="{{ endTime }}"
-      label="结束时间"
-      placeholder="请输入时间"
-      focus="{{endTimeFocus}}"
-      left-icon="clock-o"
-      readonly=true
-      border="{{ true }}"
-      bindtap="onEndTime"
-      required=true
-    />
-    <van-field
-      value="{{ peopleNumber }}"
-      label="乘车人数"
-      placeholder="请输入人数"
-      left-icon="friends-o"
-      readonly=true
-      border="{{ true }}"
-      bindtap="onPeopleNumber"
-    />
-    <van-field
-      value="{{ remark }}"
-      label="备注信息"
-      left-icon="other-pay"
-      type="textarea"
-      autosize
-      placeholder="车型、行车要求、途径地址等。"
-      border="{{ true }}"
-      bind:change="changeRemark"
-    />
-  </van-cell-group>
-  <label class='lable-mzsm'>
-    <checkbox  value="免责申明" checked="true" style="zoom:80%;" />
-      <text bindtap="onDeclare">《免责申明》</text>
-  </label>
+<view wx:if="{{isHide}}">
+    <view wx:if="{{canIUse}}" >
+        <view class='header'>
+            <image src='../../index/image/wx_login.png'></image>
+        </view>
+ 
+        <view class='content'>
+            <view>申请获取以下权限</view>
+            <text>获得你的公开信息(昵称，头像等)</text>
+        </view>
+ 
+        <button class='bottom' type='primary' open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="bindGetUserInfo">
+            授权登录
+        </button>
+    </view>
+    <view wx:else>请升级微信版本</view>
+</view>
+ 
+<view wx:else>
+  <van-dialog id="van-dialog" />
+  <van-toast id="van-toast" />
+  <view>
+    <van-cell-group>
+      <van-field
+        value="{{ ordersType.text }}"
+        label="订单类型"
+        left-icon="more-o"
+        readonly=true
+        border="{{ true }}"
+        bindtap="onOrdersType"
+        required=true
+      />
+      <van-field
+        value="{{ nickName }}"
+        label="联系人"
+        placeholder="请输入联系人"
+        left-icon="contact"
+        focus="{{nickNameFocus}}"
+        border="{{ true }}"
+        required=true
+      />
+      <van-field
+        value="{{phone }}"
+        label="手机号"
+        left-icon="phone-o"
+        placeholder="请输入手机号"
+        focus="{{phoneFocus}}"
+        border="{{ true }}"
+        required=true
+      />
+      <van-field
+        value="{{ startPlace }}"
+        label="出发地"
+        placeholder="请输入地址"
+        focus="{{startPlaceFocus}}"
+        left-icon="location-o"
+        readonly=true
+        type="textarea"
+        autosize
+        border="{{ true }}"
+        bindtap="onStartPlace"
+        required=true
+      />
+      <van-field
+        value="{{ endPlace }}"
+        label="目的地"
+        placeholder="请输入地址"
+        focus="{{endPlaceFocus}}"
+        left-icon="location-o"
+        readonly=true
+        type="textarea"
+        autosize
+        border="{{ true }}"
+        bindtap="onEndPlace"
+        required=true
+      />
+      <van-field
+        value="{{ startTime }}"
+        label="出发时间"
+        placeholder="请输入时间"
+        focus="{{startTimeFocus}}"
+        left-icon="clock-o"
+        readonly=true
+        border="{{ true }}"
+        bindtap="onStartTime"
+        required=true
+      />
+      <van-field
+        value="{{ endTime }}"
+        label="结束时间"
+        placeholder="请输入时间"
+        focus="{{endTimeFocus}}"
+        left-icon="clock-o"
+        readonly=true
+        border="{{ true }}"
+        bindtap="onEndTime"
+        required=true
+      />
+      <van-field
+        value="{{ peopleNumber }}"
+        label="乘车人数"
+        placeholder="请输入人数"
+        left-icon="friends-o"
+        readonly=true
+        border="{{ true }}"
+        bindtap="onPeopleNumber"
+      />
+      <van-field
+        value="{{ needMoney }}"
+        label="乘车费用"
+        type="number"
+        placeholder="请输入费用"
+        left-icon="gold-coin-o"
+        border="{{ true }}"
+        bind:change="changeNeedMoney"
+      />
+      <van-field
+        value="{{ remark }}"
+        label="备注信息"
+        left-icon="other-pay"
+        type="textarea"
+        autosize
+        placeholder="车型、行车要求、途径地址等。"
+        border="{{ true }}"
+        bind:change="changeRemark"
+      />
+    </van-cell-group>
+    <label class='lable-mzsm'>
+      <checkbox  value="免责申明" checked="true" style="zoom:80%;" />
+        <text bindtap="onDeclare">《免责申明》</text>
+    </label>
 
-  <van-button 
-    type="primary" 
-    size="large" 
-    custom-class="vanButton"
-    bind:click="getuserinfo"
-    round="true"
-    >行程发布</van-button>
+    <van-button 
+      type="primary" 
+      size="large" 
+      custom-class="vanButton"
+      bind:click="getuserinfo"
+      round="true"
+      >行程发布</van-button>
 
 
-  <van-popup 
-  show="{{ showPopupTime }}" 
-  bind:close="onClosePopup"
-  position="bottom">
-    <van-datetime-picker
-      type="datetime"
-      value="{{ currentDate }}"
-      min-date="{{ minDate }}"
-      max-date="{{ maxDate }}"
-      bind:confirm="onTimeConfirm"
-    />
-  </van-popup>
-
-  <van-popup
-    show="{{ showPopupPeople }}"
-    position="bottom"
+    <van-popup 
+    show="{{ showPopupTime }}" 
     bind:close="onClosePopup"
-  >
-    <van-picker 
-      columns="{{ columns }}" 
-      show-toolbar
-      title="乘车人数"
-      bind:confirm="onConfirmPeople" />
-  </van-popup>
+    position="bottom">
+      <van-datetime-picker
+        type="datetime"
+        value="{{ currentDate }}"
+        min-date="{{ minDate }}"
+        max-date="{{ maxDate }}"
+        bind:confirm="onTimeConfirm"
+      />
+    </van-popup>
 
+    <van-popup
+      show="{{ showPopupPeople }}"
+      position="bottom"
+      bind:close="onClosePopup"
+    >
+      <van-picker 
+        columns="{{ columns }}" 
+        show-toolbar
+        title="乘车人数"
+        bind:confirm="onConfirmPeople" />
+    </van-popup>
+    
+    <van-popup
+      show="{{ showOrdersType }}"
+      position="bottom"
+      bind:close="onClosePopup"
+    >
+      <van-picker 
+        columns="{{ ordersTypeColumns }}" 
+        show-toolbar
+        title="单据类型"
+        bind:confirm="onConfirmType" />
+    </van-popup>
 
+  </view>
 </view>

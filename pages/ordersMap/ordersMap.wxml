@@ -34,6 +34,12 @@
     value="{{orders.peopleNumber}}"
   />
   <van-cell
+    title="乘车费用"
+    icon="gold-coin-o"
+    value="{{orders.needMoney}}"
+  />
+ 
+  <van-cell
     title="备注信息"
     icon="other-pay"
     label="{{orders.remark}}"

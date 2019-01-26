@@ -1,13 +1,16 @@
+var util = require('../utils/util.js');
 Page({
   /**
    * 页面的初始数据
    */
   data: {
+    isHide: false,
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
     redRec:"../../index/image/red.png",
     greenUrl:"../../index/image/green.png",
     timeUrl: "../../index/image/time.png",
     rightUrl: "../../index/image/right.png",
-    ordersFareList:[{
+    ordersList:[{
       ordersType:"人找车",
       ordersState:"等待中",
       userName: "魏佳郑",
@@ -23,7 +26,9 @@ Page({
       startTime: "2019-1-18 22:15",
       endTime: "2019-1-18 22:15",
       peopleNumber: 4,
-      remark: "备注信息"
+      remark: "备注信息",
+      ordersType: "1",
+      ordersState: ""
     },{
         ordersType: "人找车",
         ordersState: "已完成",
@@ -40,43 +45,10 @@ Page({
         startTime: "2019-1-18 22:15",
         endTime: "2019-1-18 22:15",
         peopleNumber: 4,
-        remark: "备注信息"
-      }],
-    ordersDriverList: [{
-      ordersType: "车找人",
-      ordersState: "等待中",
-      userName: "魏佳郑",
-      userPhone: "18094010674",
-      startAddress: "福建省福州市福清市一拂街7号",
-      startName: "福清环球商业中心",
-      startLatitude: 25.71964,
-      startLongitude: 119.38349,
-      endAddress: "福建省福州市福清市锦云街附近",
-      endName: "成龙步行街",
-      endLatitude: 25.719881,
-      endLongitude: 119.3798,
-      startTime: "2019-1-18 22:15",
-      endTime: "2019-1-18 22:15",
-      peopleNumber: 4,
-      remark: "备注信息"
-    }, {
-      ordersType: "车找人",
-      ordersState: "已完成",
-      userName: "魏佳郑",
-      userPhone: "18094010674",
-      startAddress: "福建省福州市福清市一拂街7号",
-      startName: "福清环球商业中心",
-      startLatitude: 25.71964,
-      startLongitude: 119.38349,
-      endAddress: "福建省福州市福清市锦云街附近",
-      endName: "成龙步行街",
-      endLatitude: 25.719881,
-      endLongitude: 119.3798,
-      startTime: "2019-1-18 22:15",
-      endTime: "2019-1-18 22:15",
-      peopleNumber: 4,
-      remark: "备注信息"
-    }],
+        remark: "备注信息",
+        ordersType:"0",
+        ordersState:""
+      }]
   },
 
   toOrdersMap: function (e){
@@ -92,35 +64,25 @@ Page({
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
+  onLoad: function () {
+    util.getUserOpenid(this);
+    
+  },
+  //关键字搜索参数
+  changeParam1: function (event) {
+    var _page = this;
+    _page.setData({
+      queryParam1: event.detail
+    })
+  },
+  changeParam2 :function (event){
+    var _page = this;
+    _page.setData({
+      queryParam2: event.detail
+    })
+  },
+  bindGetUserInfo: function (e) {
+    util.getUserInfo(e, this);
   },
 
   /**

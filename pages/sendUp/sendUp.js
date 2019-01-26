@@ -1,15 +1,44 @@
+// 引入配置
+var config = require('../../config');
 var util = require('../utils/util.js');
 import Toast from '../../miniprogram_npm/vant-weapp/toast/toast';
 import Dialog from '../../miniprogram_npm/vant-weapp/dialog/dialog';
 Page({
   data: {
-    userName : "魏佳郑",
-    userPhone: "18094010674",
+    ordersType:{
+      key:0,
+      text:"人找车"
+      },
+    ordersTypeColumns: [{
+      key: 0,
+      text: "人找车"
+    }, {
+        key: 1,
+        text: "车找人"
+      }],
+    isHide: false,
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    nickName : "魏佳郑",
+    phone: "18094010674",
     columns: ['1', '2', '3', '4', '5', '6'],
+
     isStartOrEnd: "",
     minDate: new Date().getTime(),
     maxDate: new Date(2022, 10, 1).getTime(),
     currentDate: new Date().getTime()
+  },
+  onOrdersType :function(){
+    var _page = this;
+    _page.setData({
+      showOrdersType: true
+    })
+  },
+  onConfirmType :function(e){
+    var _page = this;
+    _page.setData({
+      ordersType: e.detail.value,
+      showOrdersType: false
+    })
   },
   //出发地
   onStartPlace: function () {
@@ -103,13 +132,20 @@ Page({
     var _page = this;
     _page.setData({
       showPopupTime: false,
-      showPopupPeople :false
+      showPopupPeople :false,
+      showOrdersType:false
     })
   },
   //免责申明
   onDeclare :function(){
     wx.navigateTo({
       url: '../declare/declare'
+    })
+  },
+  changeNeedMoney:function(e){
+    var _page = this;
+    _page.setData({
+      needMoney: e.detail
     })
   },
   //备注修改
@@ -122,22 +158,22 @@ Page({
   //点击行程发布
   getuserinfo: function (event){
     var _page = this;
-    if (_page.data.userName == null || _page.data.userName ==""){
+    if (_page.data.nickName == null || _page.data.nickName ==""){
       Dialog.alert({
         message: '联系人姓名是必填！'
       }).then(() => {
         _page.setData({
-          userNameFocus: true
+          nickNameFocus: true
         })
       });
       return;
     }
-    if (_page.data.userPhone == null || _page.data.userPhone == "") {
+    if (_page.data.phone == null || _page.data.phone == "") {
       Dialog.alert({
         message: '手机号码是必填！'
       }).then(() => {
         _page.setData({
-          userPhoneFocus: true
+          phoneFocus: true
         })
       });
       return;
@@ -166,37 +202,67 @@ Page({
       });
       return;
     }
-    console.log(_page.data.userName);
-    console.log(_page.data.userPhone);
-    console.log(_page.data.startPlace);
-    console.log(_page.data.endPlace);
-    console.log(_page.data.startTime);
-    console.log(_page.data.endTime);
-    console.log(_page.data.peopleNumber);
-    console.log(_page.data.endAddress);
-    console.log(_page.data.endName);
-    console.log(_page.data.endLatitude);
-    console.log(_page.data.endLongitude);
-    console.log(_page.data.startAddress);
-    console.log(_page.data.startName);
-    console.log(_page.data.startLatitude);
-    console.log(_page.data.startLongitude);
-    console.log(_page.data.startTimeLong);
-    console.log(_page.data.endTimeLong);
-    wx.request({
-      url: 'test.php', // 仅为示例，并非真实的接口地址
-      data: {
-        x: '',
-        y: ''
+    wx.getStorage({
+      key: 'sessionid',
+      success: function(res) {
+        var sessionid = res.data
+        if (sessionid == null || sessionid == "") {
+          Dialog.alert({
+            message: '请重新登录！'
+          });
+          return;
+        } else {
+          var header = { 'content-type': 'application/x-www-form-urlencoded', 'cookie': 'JSESSIONID=' + sessionid, 'content-type': 'application/json'}
+          wx.request({
+            url: `${config.service.host}/orders/sendUp.do?`,
+            header: header,
+            data: {
+              ordersType: _page.data.ordersType.key,
+              nickName: _page.data.nickName,
+              phone: _page.data.phone,
+              startAddress: _page.data.startAddress,
+              startName: _page.data.startName,
+              startLatitude: _page.data.startLatitude,
+              startLongitude: _page.data.startLongitude,
+              endAddress: _page.data.endAddress,
+              endName: _page.data.endName,
+              endLatitude: _page.data.endLatitude,
+              endLongitude: _page.data.endLongitude,
+              startTime: _page.data.startTime,
+              endTime: _page.data.endTime,
+              peopleNumber: _page.data.peopleNumber,
+              needMoney: _page.data.needMoney,
+              remark: _page.data.remark
+            },
+            method: "POST",
+            success(res) {
+              Dialog.alert({
+                message: res.data.info
+              }).then(() => {
+                if (res.data.result == 1) {
+                  wx.switchTab({
+                    url: '../../pages/userMsg/userMsg'
+                  })
+                }
+              });;
+            },
+            fail(){
+              Dialog.alert({
+                message: '系统错误！'
+              });
+              return;
+            }
+          })
+        }
       },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success(res) {
-        console.log(res.data)
-      }
     })
-    
+  },
+  onLoad: function () {
+    util.getUserOpenid(this);
+  },
+
+  bindGetUserInfo: function (e) {
+    util.getUserInfo(e, this);
   }
 });
  
