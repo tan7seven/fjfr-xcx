@@ -6,8 +6,7 @@
     "pages/ordersList/ordersList",
     "pages/ordersMap/ordersMap",
     "pages/userMsg/userMsg",
-    "pages/userMsg/userOrders/userOrders",
-    "pages/userMsg/userMsg/modifyPhone"
+    "pages/userMsg/userOrders/userOrders"
   ],
   "window": {
     "backgroundTextStyle": "light",

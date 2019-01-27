@@ -3,12 +3,10 @@
         <view class='header'>
             <image src='../../index/image/wx_login.png'></image>
         </view>
- 
         <view class='content'>
             <view>申请获取以下权限</view>
             <text>获得你的公开信息(昵称，头像等)</text>
         </view>
- 
         <button class='bottom' type='primary' open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="bindGetUserInfo">
             授权登录
         </button>
@@ -19,7 +17,7 @@
 <view wx:else>
   <van-dialog id="van-dialog" />
   <van-toast id="van-toast" />
-  <van-tabs type="card" color="rgba(4, 166, 241, 0.904)">
+  <van-tabs type="card" color="rgba(4, 166, 241, 0.904)" bind:change="changeTabs">
     <van-tab title="人找车" >
       <view class="card-view">
       <van-cell-group>
@@ -33,12 +31,12 @@
             use-button-slot
             bind:change="changeParam1"
           >
-            <van-button slot="button" size="small" type="primary">搜索行程</van-button>
+            <van-button slot="button" size="small" type="primary" bind:click="onQueryParam1">搜索行程</van-button>
           </van-field>
         </van-cell-group>
         <scroll-view>
-          <view wx:for="{{ordersList}}" wx:for-index="index" wx:for-item="itemName" >
-          <view class='card-font' bindtap="toOrdersMap" data-id="{{index}}" data-item="{{itemName}}" wx:if="{{itemName.ordersType==0}}" >
+          <view wx:for="{{ordersList}}" wx:key="ordersList1" wx:for-index="index" wx:for-item="itemName" >
+          <view class='card-font' bindtap="toOrdersMap" data-id="{{index}}" data-item="{{itemName}}" wx:if="{{itemName.ordersType=='人找车'}}" >
             <view>
             <image
               style="width: 15rpx; height: 15rpx;"
@@ -95,12 +93,12 @@
             use-button-slot
             bind:change="changeParam2"
           >
-            <van-button slot="button" size="small" type="primary">搜索行程</van-button>
+            <van-button slot="button" size="small" type="primary" bind:click="onQueryParam2">搜索行程</van-button>
           </van-field>
         </van-cell-group>
         <scroll-view>
-          <view wx:for="{{ordersList}}" wx:for-index="index" wx:for-item="itemName" >
-          <view class='card-font' bindtap="toOrdersMap" data-id="{{index}}" data-item="{{itemName}}"  wx:if="{{itemName.ordersType==1}}" >
+          <view wx:for="{{ordersList}}" wx:key="ordersList2" wx:for-index="index" wx:for-item="itemName" >
+          <view class='card-font' bindtap="toOrdersMap" data-id="{{index}}" data-item="{{itemName}}"  wx:if="{{itemName.ordersType=='车找人'}}" >
             <view>
             <image
               style="width: 15rpx; height: 15rpx;"

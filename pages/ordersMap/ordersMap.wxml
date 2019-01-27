@@ -8,12 +8,12 @@
 <van-cell
     title="乘客姓名"
     icon="contact"
-    value="{{orders.userName}}"
+    value="{{orders.nickName}}"
   />
 <van-cell
     title="联系电话"
     icon="phone-o"
-    value="{{orders.userPhone}}"
+    value="{{orders.phone}}"
     clickable=true
     is-link
     bind:click="makePhoneCall"

@@ -1,2 +1,101 @@
-<!--pages/userMsg/userOrders/userOrders.wxml-->
-<text>pages/userMsg/userOrders/userOrders.wxml</text>
+
+  <van-dialog id="van-dialog" />
+  <van-toast id="van-toast" />
+  <van-tabs type="card" color="rgba(4, 166, 241, 0.904)" bind:change="changeTabs">
+    <van-tab title="人找车" >
+      <view class="card-view">
+        <scroll-view>
+          <view wx:for="{{ordersList}}" wx:key="ordersList1" wx:for-index="index" wx:for-item="itemName" >
+          <view class='card-font' bindtap="toOrdersMap" data-id="{{index}}" data-item="{{itemName}}" wx:if="{{itemName.ordersType=='人找车'}}" >
+            <view>
+            <image
+              style="width: 15rpx; height: 15rpx;"
+              mode="aspectFill"
+              src="{{timeUrl}}"
+            ></image>
+            <text decode="nbsp">&nbsp;&nbsp;{{itemName.startTime}}</text>
+            <image class='card-font-right'
+              style="width: 30rpx; height: 30rpx;"
+              mode="aspectFill"
+              src="{{rightUrl}}"
+            ></image>
+            <text class='card-font-right' style='margin-top: -8rpx;'>{{itemName.ordersState}}</text>
+            </view>
+            <view>
+            <image
+              style="width: 15rpx; height: 15rpx;"
+              mode="aspectFill"
+              src="{{timeUrl}}"
+            ></image>
+            <text decode="nbsp">&nbsp;&nbsp;{{itemName.endTime}}</text>
+            </view>
+            <view>
+            <image
+              style="width: 15rpx; height: 15rpx;"
+              mode="aspectFill"
+              src="{{greenUrl}}"
+            ></image>
+            <text decode="nbsp">&nbsp;&nbsp;{{itemName.startAddress}}&nbsp;-&nbsp;{{itemName.startName}}</text>
+            </view>
+            <view>
+            <image
+              style="width: 15rpx; height: 15rpx;"
+              mode="aspectFill"
+              src="{{redRec}}"
+            ></image>
+            <text decode="nbsp">&nbsp;&nbsp;{{itemName.endAddress}}&nbsp;-&nbsp;{{itemName.endName}}</text>
+            </view>
+          </view>
+          </view>
+        </scroll-view> 
+      </view>
+    </van-tab>
+    <van-tab title="车找人">
+      <view class="card-view">
+        <scroll-view>
+          <view wx:for="{{ordersList}}" wx:key="ordersList2" wx:for-index="index" wx:for-item="itemName" >
+          <view class='card-font' bindtap="toOrdersMap" data-id="{{index}}" data-item="{{itemName}}"  wx:if="{{itemName.ordersType=='车找人'}}" >
+            <view>
+            <image
+              style="width: 15rpx; height: 15rpx;"
+              mode="aspectFill"
+              src="{{timeUrl}}"
+            ></image>
+            <text decode="nbsp">&nbsp;&nbsp;{{itemName.startTime}}</text>
+            <image class='card-font-right'
+              style="width: 30rpx; height: 30rpx;"
+              mode="aspectFill"
+              src="{{rightUrl}}"
+            ></image>
+            <text class='card-font-right' style='margin-top: -8rpx;'>{{itemName.ordersState}}</text>
+            </view>
+            <view>
+            <image
+              style="width: 15rpx; height: 15rpx;"
+              mode="aspectFill"
+              src="{{timeUrl}}"
+            ></image>
+            <text decode="nbsp">&nbsp;&nbsp;{{itemName.endTime}}</text>
+            </view>
+            <view>
+            <image
+              style="width: 15rpx; height: 15rpx;"
+              mode="aspectFill"
+              src="{{greenUrl}}"
+            ></image>
+            <text decode="nbsp">&nbsp;&nbsp;{{itemName.startAddress}}&nbsp;-&nbsp;{{itemName.startName}}</text>
+            </view>
+            <view>
+            <image
+              style="width: 15rpx; height: 15rpx;"
+              mode="aspectFill"
+              src="{{redRec}}"
+            ></image>
+            <text decode="nbsp">&nbsp;&nbsp;{{itemName.endAddress}}&nbsp;-&nbsp;{{itemName.endName}}</text>
+            </view>
+          </view>
+          </view>
+        </scroll-view> 
+      </view>
+    </van-tab>
+  </van-tabs>

@@ -36,6 +36,7 @@ function getUserOpenid(_page){
                   key: 'sessionid',
                   data: res.data,
                 })
+               
               }
             });
           }
@@ -73,7 +74,7 @@ function getUserInfo(e,_page){
           success: res => {
             console.log("用户的code:" + res.code);
             wx.request({
-              url: `http://${config.service.host}/wx/addUser.do?`,
+              url: `${config.service.host}/wx/addUser.do?`,
               data:{
                 code: res.code,
                 nickName: e.detail.userInfo.nickName,

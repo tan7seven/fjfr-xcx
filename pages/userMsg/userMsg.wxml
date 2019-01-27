@@ -17,6 +17,8 @@
 </view>
  
 <view wx:else>
+  <van-dialog id="van-dialog" />
+  <van-toast id="van-toast" />
   <view class="userinfo">
     <view class="userinfo-avatar">
       <open-data  type="userAvatarUrl"></open-data>
@@ -27,24 +29,20 @@
   </view>
   <van-cell-group>
     <van-cell
-      title="用户积分"
-      value="{{userIntegral}}"
-      
+      title="联系名称"
+      value="{{userMsg.nickName}}"
       size=large
-    />
-    <van-cell
-      title="用户类型"
-      value="{{userType[0]}}"
-      size=large
+      is-link
+      bind:click="onChangeUserMsg"
     />
     <van-cell
       bind:click="modifyPhone"
       clickable = true
       title="手机号码"
-      value="{{userPhone}}"
+      value="{{userMsg.phone}}"
       size=large
       is-link
-      url="./userMsg/modifyPhone"
+      bind:click="onChangeUserMsg"
     />
     <van-cell
       title="我的订单"
@@ -54,6 +52,28 @@
       url="./userOrders/userOrders"
     />
   </van-cell-group>
+
+  <van-dialog
+    use-slot
+    async-close
+    show="{{ show }}"
+    show-cancel-button
+    bind:cancel="onCancelDialog"
+    bind:confirm="onConfirmDialog"
+  >
+  <van-field
+    value="{{ userMsg.nickName }}"
+    label="联系姓名"
+    placeholder="请输入联系方式"
+    bind:change="changeNickName"
+  />
+  <van-field
+    value="{{ userMsg.phone }}"
+    label="联系电话"
+    placeholder="请输入联系电话"
+    bind:change="changePhone"
+  />
+  </van-dialog>
 </view>
 
 
