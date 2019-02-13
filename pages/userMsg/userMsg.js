@@ -17,7 +17,6 @@ Page({
   },
   //点击联系名称、手机号码
   onChangeUserMsg : function(options){
-    console.log("123");
     var _page = this;
     _page.setData({
       show :true

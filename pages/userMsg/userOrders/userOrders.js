@@ -1,6 +1,7 @@
 // 引入配置
 var config = require('../../../config');
 var util = require('../../utils/util.js');
+import Dialog from '../../../miniprogram_npm/vant-weapp/dialog/dialog';
 Page({
   /**
    * 页面的初始数据
@@ -22,10 +23,35 @@ Page({
     let _item = JSON.stringify(item)
 
     wx.navigateTo({
-      url: '../ordersMap/ordersMap?item=' + _item
+      url: '../../ordersMap/ordersMap?item=' + _item
     })
   },
-
+  deleteOrders1: function (e) {
+    Dialog.confirm({
+      title: '订单删除',
+      message: '是否删除？'
+    }).then(() => {
+      wx.request({
+        url: `${config.service.host}/user/deleteOrders.do`,
+        data: {
+          id: e.currentTarget.dataset.item.id,
+         
+        },
+        success(res) {
+          Dialog.alert({
+            message: '删除成功'
+          }).then(() => {
+            wx.switchTab({
+              url: '../userMsg'
+            })
+          });;
+        }
+      })
+    }).catch(() => {
+      console.log("xuxiao ");
+      // on cancel
+    });
+  },
 
 
 

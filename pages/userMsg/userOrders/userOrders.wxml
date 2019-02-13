@@ -6,7 +6,7 @@
       <view class="card-view">
         <scroll-view>
           <view wx:for="{{ordersList}}" wx:key="ordersList1" wx:for-index="index" wx:for-item="itemName" >
-          <view class='card-font' bindtap="toOrdersMap" data-id="{{index}}" data-item="{{itemName}}" wx:if="{{itemName.ordersType=='人找车'}}" >
+          <view class='card-font'  bind:longpress="deleteOrders1" bindtap="toOrdersMap" data-id="{{index}}" data-item="{{itemName}}" wx:if="{{itemName.ordersType=='人找车'}}" >
             <view>
             <image
               style="width: 15rpx; height: 15rpx;"
@@ -54,7 +54,7 @@
       <view class="card-view">
         <scroll-view>
           <view wx:for="{{ordersList}}" wx:key="ordersList2" wx:for-index="index" wx:for-item="itemName" >
-          <view class='card-font' bindtap="toOrdersMap" data-id="{{index}}" data-item="{{itemName}}"  wx:if="{{itemName.ordersType=='车找人'}}" >
+          <view class='card-font' bindtap="toOrdersMap" bind:longpress="deleteOrders1" data-id="{{index}}" data-item="{{itemName}}"  wx:if="{{itemName.ordersType=='车找人'}}" >
             <view>
             <image
               style="width: 15rpx; height: 15rpx;"

@@ -17,7 +17,7 @@
   "tabBar": {
     "selectedColor": "#1296db",
     "backgroundColor": "#F8F8F8",
-    "borderStyle":"#C0C0C0",
+    "borderStyle":"white",
     "list": [
       {
         "pagePath": "pages/sendUp/sendUp",
