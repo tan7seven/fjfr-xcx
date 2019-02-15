@@ -31,31 +31,7 @@ Page({
 
   onLoad: function () {
     util.getUserOpenid(this);
-    var _page = this;
-    //获取订单列表
-    wx.request({
-      url: `${config.service.host}/orders/getList.do`,
-      data: {
-        rows: 10,
-        page: 1,
-        ordersType: "0"
-      },
-      success(res) {
-        for (let i = 0; i < res.data.length; i++) {
-          _page.data.ordersList.push(res.data[i]);
-        }
-        _page.setData({
-          ordersList: _page.data.ordersList
-        })
-
-      },
-      fail() {
-        Dialog.alert({
-          message: '系统错误！'
-        });
-        return;
-      }
-    })
+    
 
   },
   changeTabs: function (e) {
@@ -167,7 +143,31 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    var _page = this;
+    //获取订单列表
+    wx.request({
+      url: `${config.service.host}/orders/getList.do`,
+      data: {
+        rows: 10,
+        page: 1,
+        ordersType: "0"
+      },
+      success(res) {
+        for (let i = 0; i < res.data.length; i++) {
+          _page.data.ordersList.push(res.data[i]);
+        }
+        _page.setData({
+          ordersList: _page.data.ordersList
+        })
 
+      },
+      fail() {
+        Dialog.alert({
+          message: '系统错误！'
+        });
+        return;
+      }
+    })
   },
 
   /**

@@ -94,7 +94,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
-    util.getUserOpenid(this);
+    
     
   },
 
@@ -108,6 +108,7 @@ Page({
    */
   onReady: function () {
     var _page = this;
+    util.getUserOpenid(this);
     setTimeout(function () {
       wx.getStorage({
         key: 'sessionid',
@@ -139,7 +140,7 @@ Page({
           }
         },
       })
-    }, 100)
+    }, 2000)
     
   },
 

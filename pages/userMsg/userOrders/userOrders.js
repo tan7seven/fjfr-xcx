@@ -56,32 +56,7 @@ Page({
 
 
   onLoad: function () {
-    util.getUserOpenid(this);
-    var _page = this;
-    //获取订单列表
-    wx.request({
-      url: `${config.service.host}/orders/getList.do`,
-      data: {
-        rows: 10,
-        page: 1,
-        ordersType: "0"
-      },
-      success(res) {
-        for (let i = 0; i < res.data.length; i++) {
-          _page.data.ordersList.push(res.data[i]);
-        }
-        _page.setData({
-          ordersList: _page.data.ordersList
-        })
-
-      },
-      fail() {
-        Dialog.alert({
-          message: '系统错误！'
-        });
-        return;
-      }
-    })
+    getOrdersList(this, 0, 1);
 
   },
   changeTabs: function (e) {
@@ -89,28 +64,7 @@ Page({
     _page.setData({
       tabsIndex: e.detail.index
     })
-    //获取订单列表
-    wx.request({
-      url: `${config.service.host}/orders/getList.do`,
-      data: {
-        rows: 10,
-        page: 1,
-        ordersType: e.detail.index
-
-      },
-      success(res) {
-
-        _page.setData({
-          ordersList: res.data
-        })
-      },
-      fail() {
-        Dialog.alert({
-          message: '系统错误！'
-        });
-        return;
-      }
-    })
+    getOrdersList(this, 1, 1);
   },
   bindGetUserInfo: function (e) {
     util.getUserInfo(e, this);
@@ -179,29 +133,7 @@ Page({
     }
     //获取订单列表
     if ((Math.ceil(tabListLength / 10)) == (tabListLength / 10) && tabListLength != 0) {
-      wx.request({
-        url: `${config.service.host}/orders/getList.do`,
-        data: {
-          rows: 10,
-          page: Math.ceil(tabListLength / 10) + 1,
-          q: q,
-          ordersType: _page.data.tabsIndex
-        },
-        success(res) {
-          for (let i = 0; i < res.data.length; i++) {
-            _page.data.ordersList.push(res.data[i]);
-          }
-          _page.setData({
-            ordersList: _page.data.ordersList
-          })
-        },
-        fail() {
-          Dialog.alert({
-            message: '系统错误！'
-          });
-          return;
-        }
-      })
+      getOrdersList(this, 1, Math.ceil(tabListLength / 10) + 1);
     }
   },
 
@@ -212,3 +144,44 @@ Page({
 
   }
 })
+function getOrdersList(_page, ordersType,page) {
+  wx.getStorage({
+    key: 'sessionid',
+    success: function (res) {
+      var sessionid = res.data
+      if (sessionid == null || sessionid == "") {
+        Dialog.alert({
+          message: '请重新登录！'
+        });
+        return;
+      } else {
+        var header = { 'content-type': 'application/x-www-form-urlencoded', 'cookie': 'JSESSIONID=' + sessionid, 'content-type': 'application/json' }
+        //获取订单列表
+        wx.request({
+          url: `${config.service.host}/orders/getListByUser.do`,
+          data: {
+            rows: 10,
+            page: page,
+            ordersType: ordersType
+          },
+          header: header,
+          success(res) {
+            for (let i = 0; i < res.data.length; i++) {
+              _page.data.ordersList.push(res.data[i]);
+            }
+            _page.setData({
+              ordersList: _page.data.ordersList
+            })
+
+          },
+          fail() {
+            Dialog.alert({
+              message: '系统错误！'
+            });
+            return;
+          }
+        })
+      }
+    },
+  })
+}
